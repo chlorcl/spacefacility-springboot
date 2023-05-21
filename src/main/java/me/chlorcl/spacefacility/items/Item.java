@@ -1,11 +1,11 @@
-package me.chlorcl.spacefacility.item;
+package me.chlorcl.spacefacility.items;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.chlorcl.spacefacility.itemcategory.ItemCategory;
+import me.chlorcl.spacefacility.itemcategories.ItemCategory;
 
 @Data
 @Builder

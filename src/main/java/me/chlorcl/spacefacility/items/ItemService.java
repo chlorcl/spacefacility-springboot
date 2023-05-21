@@ -1,7 +1,9 @@
-package me.chlorcl.spacefacility.item;
+package me.chlorcl.spacefacility.items;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,4 +25,9 @@ private final ItemRepository itemRepository;
     public void deleteItem(Integer id) {
         itemRepository.deleteById(id);
     }
+
+    public List<Item> getAllItems() {
+        return itemRepository.findAll();
+    }
+
 }

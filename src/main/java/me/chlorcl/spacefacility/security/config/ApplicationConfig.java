@@ -1,7 +1,7 @@
 package me.chlorcl.spacefacility.security.config;
 
 import lombok.RequiredArgsConstructor;
-import me.chlorcl.spacefacility.employee.EmployeeRepository;
+import me.chlorcl.spacefacility.employees.EmployeeRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

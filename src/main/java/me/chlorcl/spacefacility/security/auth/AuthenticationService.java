@@ -1,9 +1,9 @@
 package me.chlorcl.spacefacility.security.auth;
 
 import lombok.*;
-import me.chlorcl.spacefacility.employee.Employee;
-import me.chlorcl.spacefacility.employee.EmployeeRepository;
-import me.chlorcl.spacefacility.employee.PrivilegeType;
+import me.chlorcl.spacefacility.employees.Employee;
+import me.chlorcl.spacefacility.employees.EmployeeRepository;
+import me.chlorcl.spacefacility.employees.PrivilegeType;
 import me.chlorcl.spacefacility.security.jwt.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

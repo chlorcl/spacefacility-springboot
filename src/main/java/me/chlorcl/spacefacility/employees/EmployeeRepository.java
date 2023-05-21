@@ -1,4 +1,4 @@
-package me.chlorcl.spacefacility.employee;
+package me.chlorcl.spacefacility.employees;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

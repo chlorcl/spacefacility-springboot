@@ -1,7 +1,9 @@
-package me.chlorcl.spacefacility.mision;
+package me.chlorcl.spacefacility.misions;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,5 +26,12 @@ public class MissionService {
         missionRepository.deleteById(id);
     }
 
+    public List<Mission> getAllMissions() {
+        return missionRepository.findAll();
+    }
+
+    public List<Mission> getMissionsByDone(Boolean done) {
+        return missionRepository.findByDone(done);
+    }
 
 }

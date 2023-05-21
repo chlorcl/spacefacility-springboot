@@ -1,4 +1,4 @@
-package me.chlorcl.spacefacility.itemcategory;
+package me.chlorcl.spacefacility.itemcategories;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

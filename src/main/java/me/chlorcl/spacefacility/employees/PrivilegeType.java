@@ -1,4 +1,4 @@
-package me.chlorcl.spacefacility.employee;
+package me.chlorcl.spacefacility.employees;
 
 public enum PrivilegeType {
     ADMIN,

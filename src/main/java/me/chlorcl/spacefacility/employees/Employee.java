@@ -1,4 +1,4 @@
-package me.chlorcl.spacefacility.employee;
+package me.chlorcl.spacefacility.employees;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

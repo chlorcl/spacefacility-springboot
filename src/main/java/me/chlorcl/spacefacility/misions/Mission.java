@@ -1,4 +1,4 @@
-package me.chlorcl.spacefacility.mision;
+package me.chlorcl.spacefacility.misions;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
