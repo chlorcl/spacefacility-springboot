@@ -1,9 +1,12 @@
 package me.chlorcl.spacefacility.misions;
 
 import lombok.RequiredArgsConstructor;
+import me.chlorcl.spacefacility.items.Item;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/missions")
@@ -43,6 +46,11 @@ public class MissionController {
     public ResponseEntity<Void> deleteMission(@RequestBody Integer id) {
         missionService.deleteMission(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}/items")
+    public ResponseEntity<List<Item>> getMissionItemsById(@PathVariable String id) {
+        return ResponseEntity.ok(missionService.getMissionItemsById(Integer.valueOf(id)));
     }
 
 }
