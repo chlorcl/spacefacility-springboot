@@ -1,6 +1,9 @@
 package me.chlorcl.spacefacility.misions;
 
 import lombok.RequiredArgsConstructor;
+import me.chlorcl.spacefacility.items.Item;
+import me.chlorcl.spacefacility.items.ItemRepository;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MissionService {
     private final MissionRepository missionRepository;
+    private final ItemRepository itemRepository;
 
     public Mission createMission(Mission mission) {
         return missionRepository.save(mission);
@@ -33,5 +37,10 @@ public class MissionService {
     public List<Mission> getMissionsByDone(Boolean done) {
         return missionRepository.findByDone(done);
     }
+
+    public List<Item> getMissionItemsById(Integer id) {
+        return itemRepository.findByMissionId(id);
+    }
+
 
 }
