@@ -1,4 +1,5 @@
 package me.chlorcl.spacefacility.checkouts;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,33 +13,30 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="checkouts")
+@Table(name = "checkouts")
 public class Checkout {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Integer id;
-       @OneToOne
-        @JoinColumn(
-                name = "employee_id",
-                referencedColumnName = "id",
-                insertable = false,
-                updatable = false
-        )
-        private Employee employee;
-       private Date checkout_date;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @OneToOne
+    @JoinColumn(
+            name = "employee_id",
+            referencedColumnName = "id",
+            insertable = false,
+            updatable = false
+    )
+    private Employee employee;
+    private Date checkout_date;
 
-       @OneToOne
-        @JoinColumn(
-                name = "room_id",
-                referencedColumnName = "id",
-                insertable = false,
-                updatable = false
-        )
-        private Room room;
-
-
-
+    @OneToOne
+    @JoinColumn(
+            name = "room_id",
+            referencedColumnName = "id",
+            insertable = false,
+            updatable = false
+    )
+    private Room room;
 
 
 }
