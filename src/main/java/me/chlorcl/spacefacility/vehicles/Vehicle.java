@@ -5,10 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.chlorcl.spacefacility.launches.Launch;
 
 import java.sql.Date;
 
-@Data
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,5 +28,12 @@ public class Vehicle {
 
     @Column(name="checkout_id")
     private Integer checkoutId;
+
+    @OneToOne
+    @JoinColumn(name = "launch_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Launch launch;
+
+
+
 
 }
