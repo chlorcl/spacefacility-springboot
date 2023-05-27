@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.chlorcl.spacefacility.employees.Employee;
+import me.chlorcl.spacefacility.vehicles.Vehicle;
+
 import java.sql.Date;
 import java.util.Set;
 
@@ -35,9 +37,9 @@ public class Launch {
     )
     private Set<Employee> employee;
 
-//    @OneToOne
-//    @JoinColumn(name = "vehicle_id", referencedColumnName = "id", insertable = false, updatable = false)
-//    private Vehicle vehicle; //TODO import Vehicle class
+    @OneToOne
+    @JoinColumn(name = "vehicle_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Vehicle vehicle;
 
 
 
