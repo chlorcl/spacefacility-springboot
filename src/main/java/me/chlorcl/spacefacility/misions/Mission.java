@@ -1,5 +1,9 @@
 package me.chlorcl.spacefacility.misions;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +13,7 @@ import me.chlorcl.spacefacility.employees.Employee;
 import me.chlorcl.spacefacility.items.Item;
 import me.chlorcl.spacefacility.vehicles.Vehicle;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,15 +33,11 @@ public class Mission {
     private String purpose;
     private boolean done;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "mission_items",
-        joinColumns = @JoinColumn(name = "mission_id"),
-        inverseJoinColumns = @JoinColumn(name = "item_id")
-    )
-    private Set<Item> itemId;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "item_id")
+    private Set<Item> items = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
         name = "mission_vehicles",
         joinColumns = @JoinColumn(name = "mission_id"),
@@ -44,7 +45,9 @@ public class Mission {
     )
     private Set<Vehicle> vehicleId;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JoinTable(
         name = "mission_employees",
         joinColumns = @JoinColumn(name = "mission_id"),

@@ -38,9 +38,5 @@ public class MissionService {
         return missionRepository.findByDone(done);
     }
 
-    public List<Item> getMissionItemsById(Integer id) {
-        return itemRepository.findByMissionId(id);
-    }
-
 
 }

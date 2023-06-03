@@ -1,6 +1,7 @@
 package me.chlorcl.spacefacility.security.auth;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,10 +22,21 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> login(
         @RequestBody AuthenticationRequest request
     ) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<Boolean> authenticate(
+        @RequestBody TokenAuthenticationRequest request
+    ) {
+        if (authenticationService.authenticateToken(request.getToken())) {
+            return ResponseEntity.ok(true);
+        } else {
+            return ResponseEntity.status(403).body(false);
+        }
     }
 }

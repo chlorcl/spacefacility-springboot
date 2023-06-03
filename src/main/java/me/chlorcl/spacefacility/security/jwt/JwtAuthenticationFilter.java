@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +20,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final UserDetailsService employeeService;
+    private final UserDetailsService employeeDetailService;
     private final JwtService jwtService;
 
     @Override
@@ -37,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String email = jwtService.extractEmail(token);
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            final UserDetails userDetails = employeeService.loadUserByUsername(email);
+            final UserDetails userDetails = employeeDetailService.loadUserByUsername(email);
 
             if (jwtService.isTokenValid(token, userDetails)) {
                 final UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

@@ -1,4 +1,4 @@
-package me.chlorcl.spacefacility.itemcategories;
+package me.chlorcl.spacefacility.items.categories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

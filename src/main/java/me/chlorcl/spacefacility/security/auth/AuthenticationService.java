@@ -2,13 +2,17 @@ package me.chlorcl.spacefacility.security.auth;
 
 import lombok.*;
 import me.chlorcl.spacefacility.employees.Employee;
+import me.chlorcl.spacefacility.employees.EmployeePrincipal;
 import me.chlorcl.spacefacility.employees.EmployeeRepository;
 import me.chlorcl.spacefacility.employees.PrivilegeType;
 import me.chlorcl.spacefacility.security.jwt.JwtService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
@@ -38,11 +42,12 @@ public class AuthenticationService {
                 .city(request.getCity())
                 .address(request.getAddress())
                 .areaId(0)
-                .professionId(0)
+                .profession(null)
                 .privilegeType(PrivilegeType.EMPLOYEE)
                 .build();
         employeeRepository.save(employee);
-        var token = jwtService.generateToken(employee);
+        EmployeePrincipal employeePrincipal = new EmployeePrincipal(employee);
+        var token = jwtService.generateToken(employeePrincipal);
         return AuthenticationResponse.builder()
                 .token(token)
                 .build();
@@ -59,10 +64,31 @@ public class AuthenticationService {
         if (employee.isEmpty()) {
             throw new RuntimeException("User not found");
         }
-        var token = jwtService.generateToken(employee.get());
+        EmployeePrincipal employeePrincipal = new EmployeePrincipal(employee.get());
+        var token = jwtService.generateToken(employeePrincipal);
         return AuthenticationResponse.builder()
                 .token(token)
+                .email(employee.get().getEmail())
+                .name(employee.get().getName())
+                .surname(employee.get().getSurname())
+                .privilegeType(employee.get().getPrivilegeType())
                 .build();
+    }
+
+    public Boolean authenticateToken(String token) {
+        if (token == null || token.isEmpty()) {
+            return false;
+        }
+        if (!jwtService.isTokenSignatureValid(token)) {
+            return false;
+        }
+
+        var employee = employeeRepository.findByEmail(jwtService.extractEmail(token));
+        if (employee.isEmpty()) {
+            return false;
+        }
+
+        return true;
     }
 
 }

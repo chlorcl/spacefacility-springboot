@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/launches")
 @RequiredArgsConstructor
@@ -13,7 +15,7 @@ public class LaunchController {
     private final LaunchService launchService;
 
     @GetMapping
-    public ResponseEntity<Iterable<Launch>> getAllLaunches() {
+    public ResponseEntity<List<Launch>> getAllLaunches() {
         return ResponseEntity.ok(launchService.getAllLaunches());
     }
 

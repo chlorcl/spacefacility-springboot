@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.chlorcl.spacefacility.employees.PrivilegeType;
 
 @Data
 @Builder
@@ -18,5 +19,7 @@ public class Privilege {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer id;
         private String name;
-        private Integer type_id;
+
+        @Enumerated(EnumType.ORDINAL)
+        private PrivilegeType type;
 }

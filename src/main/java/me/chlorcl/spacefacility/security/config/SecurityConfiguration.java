@@ -1,6 +1,7 @@
 package me.chlorcl.spacefacility.security.config;
 
 import lombok.RequiredArgsConstructor;
+import me.chlorcl.spacefacility.security.cors.CorsHeaderFilter;
 import me.chlorcl.spacefacility.security.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,17 +21,21 @@ public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
+    private final CorsHeaderFilter corsFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf().disable()
+                .csrf()
+                .disable()
                 .authorizeHttpRequests()
-                .requestMatchers(request -> request.getRequestURI().startsWith("/api/v1/auth"))
+//                .requestMatchers(request -> request.getRequestURI().startsWith("/api/v1/auth"))
+//                .permitAll()
+//                .anyRequest()
+                .requestMatchers(request -> request.getRequestURI().startsWith("/api/v1"))
                 .permitAll()
-                .anyRequest()
-                .authenticated()
                 .and()
+                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

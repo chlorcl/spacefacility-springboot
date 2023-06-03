@@ -1,5 +1,6 @@
 package me.chlorcl.spacefacility.items;
 
+import jakarta.persistence.PreRemove;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

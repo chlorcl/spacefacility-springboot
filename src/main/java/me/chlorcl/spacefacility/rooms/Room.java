@@ -3,9 +3,11 @@ package me.chlorcl.spacefacility.rooms;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.chlorcl.spacefacility.areas.Area;
 
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

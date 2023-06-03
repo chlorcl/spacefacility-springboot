@@ -1,12 +1,11 @@
-package me.chlorcl.spacefacility.itemcategories;
+package me.chlorcl.spacefacility.items.categories;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import me.chlorcl.spacefacility.items.Item;
+import org.hibernate.Hibernate;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -22,9 +21,5 @@ public class ItemCategory {
         private Integer id;
         private String name;
         private String description;
-
-        @OneToMany(mappedBy = "itemCategoryId")
-        private Set<Item> itemId;
-
 
 }

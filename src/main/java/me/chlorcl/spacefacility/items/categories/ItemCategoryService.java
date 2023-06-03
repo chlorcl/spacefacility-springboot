@@ -1,4 +1,4 @@
-package me.chlorcl.spacefacility.itemcategories;
+package me.chlorcl.spacefacility.items.categories;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

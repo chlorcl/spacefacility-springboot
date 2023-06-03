@@ -42,15 +42,10 @@ public class MissionController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @DeleteMapping
-    public ResponseEntity<Void> deleteMission(@RequestBody Integer id) {
-        missionService.deleteMission(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMission(@PathVariable String id) {
+        missionService.deleteMission(Integer.valueOf(id));
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/{id}/items")
-    public ResponseEntity<List<Item>> getMissionItemsById(@PathVariable String id) {
-        return ResponseEntity.ok(missionService.getMissionItemsById(Integer.valueOf(id)));
     }
 
 }

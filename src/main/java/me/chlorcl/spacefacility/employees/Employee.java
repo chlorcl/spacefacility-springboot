@@ -1,10 +1,12 @@
 package me.chlorcl.spacefacility.employees;
 
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.chlorcl.spacefacility.professions.Profession;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name="employees")
-public class Employee implements UserDetails {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,35 +39,7 @@ public class Employee implements UserDetails {
     @Enumerated(EnumType.STRING)
     private PrivilegeType privilegeType;
 
-    private Integer professionId;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(privilegeType.name()));
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+    @OneToOne
+    @JoinColumn(name = "profession_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Profession profession;
 }

@@ -1,13 +1,18 @@
 package me.chlorcl.spacefacility.items;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.chlorcl.spacefacility.itemcategories.ItemCategory;
+import me.chlorcl.spacefacility.items.categories.ItemCategory;
+import me.chlorcl.spacefacility.launches.Launch;
 import me.chlorcl.spacefacility.misions.Mission;
+import me.chlorcl.spacefacility.storages.Storage;
+import org.hibernate.annotations.Cascade;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -24,16 +29,35 @@ public class Item {
         private String name;
         private String description;
 
-        @ManyToOne
+        @ManyToOne(cascade = CascadeType.ALL)
         @JoinColumn(name = "item_category_id")
-        private ItemCategory itemCategoryId;
+        private ItemCategory itemCategory;
 
-        @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-        @JoinTable(
-            name = "mission_items",
-            joinColumns = @JoinColumn(name = "item_id"),
-            inverseJoinColumns = @JoinColumn(name = "mission_id")
+        @JsonIgnore
+        @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+        @JoinTable (
+                name = "storage_items",
+                joinColumns = @JoinColumn(name = "item_id"),
+                inverseJoinColumns = @JoinColumn(name = "storage_id")
         )
-        private Set<Mission> missionId;
+        private Set<Storage> storages = new HashSet<>();
+
+        @JsonIgnore
+        @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+        @JoinTable(
+                name = "mission_items",
+                joinColumns = @JoinColumn(name = "item_id"),
+                inverseJoinColumns = @JoinColumn(name = "mission_id")
+        )
+        private Set<Mission> missions = new HashSet<>();
+
+        @JsonIgnore
+        @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+        @JoinTable (
+                name = "launch_items",
+                joinColumns = @JoinColumn(name = "item_id"),
+                inverseJoinColumns = @JoinColumn(name = "launch_id")
+        )
+        private Set<Launch> launches = new HashSet<>();
 
 }
